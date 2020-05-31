@@ -16,3 +16,9 @@ done
 ```bash
 for i in `seq 1 254` ; do ADDR=155.133.21.$i ; ping $ADDR -c 1 -W 1 && echo $ADDR >> found || echo $ADDR >> not_found ; done
 ```
+
+```bash
+for i in `docker ps -a | grep -i httpd | awk '{print $1}'` ; do 
+  curl  $(docker inspect $i | grep -Po "IPAddress\": \"\K[0-9\.]*")
+done
+```
